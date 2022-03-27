@@ -1,0 +1,1 @@
+Within the scope of this project a simple parser for the Fibaro API will be developed to perform GET requests on the user's behalf and cast the data from JSON to csv format for easier further processing of said data.
