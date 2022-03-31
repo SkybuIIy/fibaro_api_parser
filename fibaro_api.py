@@ -6,6 +6,7 @@ import sys
 import requests
 import json
 import configparser
+import csv
 
 ### stuff ###
 hc2IP = "192.168.188.53"
@@ -51,6 +52,7 @@ def do_request(path, method="GET", params={}, headers={}):
 # make on function that gets all
 # make function that prints all functionalities --help
 
+### these functions still need adjustments ###
 # general settings - URL: /api/settings/info
 def get_general_settings(hc2IP):
     response = requests.get("http://"+hc2IP+"/api/settings/info", auth=hc2auth)
@@ -239,7 +241,21 @@ def get_network_discovery(hc2IP):
     response = requests.get("http://"+hc2IP+"/api/networkDiscovery", auth=hc2auth)
     return response.json()
 
+# convert json to csv
+def json_to_csv(jsondata):
+    csv_file = open(input("full path for csv file: "), 'w', newline='')
+    csv_writer = csv.writer(csv_file)
+    count = 0
+    for data in jsondata:
+        if count == 0:
+            header = data.keys()
+            csv_writer.writerow(header)
+            count += 1
+        csv_writer.writerow(data.values())
+    csv_file.close()
 
 # sample request for all events between certain times
 # will later add that user can input ip and timeframe/device id/etc
-print(do_request("http://192.168.188.53/api/panels/event?from=1647978548&to=1648064948", ))
+#print(do_request("http://192.168.188.53/api/panels/event?from=1647978548&to=1648064948", ))
+
+json_to_csv(do_request("http://192.168.188.53/api/panels/event?from=1647978548&to=1648064948", ))
