@@ -10,8 +10,10 @@ import csv
 
 ### stuff ###
 hcIP = "192.168.188.53"
-login = input("e-mail: ")
-password = input("password: ")
+#login = input("e-mail: ")
+#password = input("password: ")
+login = "skybully.iot@gmail.com"
+password = "Skybully.iot22"
 hc2auth = login, password
 baseUrl = 'http://' + hcIP + '/api/'
 
@@ -96,12 +98,12 @@ def get_scenes(hcIP):
     return response.json()
 
 # users - URL: /api/users
-def get_devices(hcIP):
-    response = requests.get("http://"+hcIP+"/api/devices", auth=hc2auth)
+def get_users(hcIP):
+    response = requests.get("http://"+hcIP+"/api/users", auth=hc2auth)
     return response.json()
 
 # global variables - URL: /api/globalVariables 
-def get_global_varaibles(hcIP):
+def get_global_variables(hcIP):
     response = requests.get("http://"+hcIP+"/api/globalVariables", auth=hc2auth)
     return response.json()
 
@@ -265,4 +267,18 @@ def json_to_csv(jsondata):
 # will later add that user can input ip and timeframe/device id/etc
 #print(do_request("http://192.168.188.53/api/panels/event?from=1647978548&to=1648064948", ))
 
-json_to_csv(do_request("http://192.168.188.53/api/panels/event?from=1647978548&to=1648064948", ))
+#json_to_csv(do_request("http://192.168.188.53/api/panels/event?from=1647978548&to=1648064948", ))
+
+
+#nope
+#print(get_backups(hcIP))
+#print(get_location(hcIP))
+#linked_devices
+#get_panel_sms_notifs
+
+
+with open('network_discovery.json', 'w', encoding='utf-8') as f:
+    json.dump(get_network_discovery(hcIP), f, ensure_ascii=False, indent=4)
+
+
+
